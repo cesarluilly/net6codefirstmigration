@@ -61,4 +61,49 @@ Vemos la base de datos creada
 
 ![DbCreated](./imgReadme/DbCreated.jpg)
 
+Mas elementos para crear columnas
+```c#
+
+//Configuracion de no permitir eliminacion en cascada
+modelBuilder.Entity<FileEntityDB>()
+    .HasOne(entity => entity.PkForeign).WithMany()
+    .OnDelete(DeleteBehavior.Restrict);
+
+//PrimaryKey
+[Key]
+[Column("Pk")]
+[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+public int intPk { get; set; }
+
+//NuevaColumna int Not Null
+[Required]
+[Column("NameColumn", TypeName = "int")]
+public int intNameColumn { get; set; }
+
+//NuevaColumna int Null
+[Column("NameColumn", TypeName = "int")]
+public int? intNameColumn { get; set; }
+
+//NuevaColumna nvarchar Not Null
+[Required]
+[Column("NameColumn", TypeName = "nvarchar(100)")]
+public String strNameColumn { get; set; }
+
+//ForeingKey Not Null
+[Required]
+[Column("PkColNameForeing", TypeName = "int")]
+public int intPkColNameForeing { get; set; }
+[ForeignKey("intPkColNameForeing")]
+public FileEntityDBForeing PkColNameForeing { get; set; }
+
+//ForeingKey Null
+[Column("PkColNameForeing", TypeName = "int")]
+public int? intnPkColNameForeing { get; set; }
+[ForeignKey("intnPkColNameForeing")]
+public FileEntityDBForeing PkColNameForeing { get; set; }
+```
+
+Estas configuraciones tambien las tengo en:
+> https://github.com/cesarluilly/ToolAndCommand-VSCode
+
 
